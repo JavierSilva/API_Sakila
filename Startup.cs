@@ -1,3 +1,5 @@
+using API_Sakila.Data;
+using API_Sakila.Modelos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +27,17 @@ namespace API_Sakila
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            try
+            {
+                services.AddSingleton<ActorBD>();
+            }
+            catch
+            {
+                throw;
+            }
+            
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

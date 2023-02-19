@@ -14,7 +14,9 @@
       "launchBrowser": true,
       "launchUrl": "RetornarActores",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CADENA_CONEXION": "server=localhost;user id=manager;password=Pa$$w0rd;port=3306;database=sakila"
+        //"CADENA_CONEXION": "server=192.168.0.101;user id=root;password=root;port=3306;database=sys"
       }
     },
     "API_Sakila": {

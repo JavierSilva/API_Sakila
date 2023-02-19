@@ -8,50 +8,53 @@ using API_Sakila.Data;
 using API_Sakila.Modelos;
 
 namespace API_Sakila.Controllers
-{
-    
+{    
     [ApiController]
     public class ActorController : ControllerBase
     {
+        ActorBD actorBD;
+        public ActorController(ActorBD pActorBD)
+        {
+            this.actorBD = pActorBD;
+        }
+
         [HttpGet("RetornarActores")]
-        public IList<Actor> Get()
+        public IActionResult Get()
         {
             try
             {
-                return new ActorBD().RetornarTodosLosActores();
+                return Ok(actorBD.RetornarTodosLosActores());
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message + ". Cadena de conexión: " + Environment.GetEnvironmentVariable("CADENA_CONEXION"));
             }
         }
 
         [HttpGet("RetornarActores/{pId}")]
-        public Actor Get(int pId)
+        public IActionResult Get(int pId)
         {
             try
             {
-                return new ActorBD().RetornarActor(pId);
+                return Ok(actorBD.RetornarActor(pId));
             }
-            catch
+            catch (Exception ex)
             {
-                return null;
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message + ". Cadena de conexión: " + Environment.GetEnvironmentVariable("CADENA_CONEXION"));
             }
         }
         [HttpPost("GuardarActor")]
-        public string Post(Actor pActor)
+        public IActionResult Post(Actor pActor)
         {
             try
             {
-                ActorBD actorBD = new ActorBD();
-
                 actorBD.GuardarActor(pActor);
 
-                return "Registro guardado!!!";
+                return Ok("Registro guardado!!!");
             }
-            catch
+            catch(Exception ex)
             {
-                return "Error";
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
     }
